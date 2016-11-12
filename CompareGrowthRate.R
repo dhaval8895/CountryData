@@ -49,8 +49,10 @@ cmpgrowthrate <- function(name, name1){
   print(r)
   library(ggplot2)
   df <- data.frame(Year, rate, rate1)
-  ggplot(df, aes(x = Year, y = Growth$Rate, color = Country,
-                 geowm = "jitter")) + 
-    geom_point(aes(y = rate, col = name)) + 
-    geom_point(aes(y = rate1, col = name1))
+  ggplot(df, aes(x = Year, y = Growth$Rate, color = Country)) + 
+    geom_line(aes(y = rate, col = name), linetype = "dashed") +
+    geom_point(aes(y = rate, col = name), shape = 3)+
+    geom_line(aes(y = rate1, col = name1), linetype = "dotted")+
+    geom_point(aes(y = rate1, col = name1), shape = 10)
+  
 }

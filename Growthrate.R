@@ -16,13 +16,15 @@ growthrate <- function(name){
    rate[j, ] <- con[1, j + 1]/con[1, j]
   }
   rate <- as.numeric(rate)
-  years <- 1960:2014
+  Year <- 1960:2014
   round <- round(rate, digits = 4)
-  print(paste("The least growth rate of", name, "is",
-              as.character(round[1]), "&", "the maximum growth rate of",
-              name, "is", as.character((round[2]))))
+  r <- cbind(round[1], round[2], round(mean(rate), digits = 4))
+  rownames(r) <- name
+  colnames(r) <- c("Min Growth", "Max Growth", "Mean Growth")
+  print(r)
+  df <- data.frame(Year, rate)
   library(ggplot2)
-  qplot(years, rate, geom = "jitter", color = "Red",
-        main = paste("Growth rate of", name), xlab = "Year",
-        ylab = "Growth Rate")
+  ggplot(df, aes(x = Year, y = Growth$Rate, color = Country,
+                 geom= "jitter")) +
+    geom_point(aes(y = rate, col = name))
 }
